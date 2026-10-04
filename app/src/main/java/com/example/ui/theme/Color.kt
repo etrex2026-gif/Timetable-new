@@ -1,0 +1,46 @@
+package com.example.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+// Brand Navy & Indigo Palette (Chercher Secondary School)
+val Navy950 = Color(0xFF070D18)
+val Navy900 = Color(0xFF0F172A)
+val Navy850 = Color(0xFF131D31)
+val Navy800 = Color(0xFF1E293B)
+val Navy700 = Color(0xFF334155)
+val Navy600 = Color(0xFF475569)
+val Navy500 = Color(0xFF64748B)
+val Navy400 = Color(0xFF94A3B8)
+val Navy200 = Color(0xFFE2E8F0)
+val Navy100 = Color(0xFFF1F5F9)
+val Navy50 = Color(0xFFF8FAFC)
+
+// Vibrant Accent Colors
+val RoyalBlue600 = Color(0xFF2563EB)
+val RoyalBlue500 = Color(0xFF3B82F6)
+val RoyalBlue400 = Color(0xFF60A5FA)
+val CyanAccent = Color(0xFF38BDF8)
+val Indigo600 = Color(0xFF4F46E5)
+val Indigo400 = Color(0xFF818CF8)
+val Amber500 = Color(0xFFF59E0B)
+val Amber400 = Color(0xFFFBBF24)
+val Emerald500 = Color(0xFF10B981)
+val Rose500 = Color(0xFFF43F5E)
+val Purple500 = Color(0xFFA855F7)
+val Teal500 = Color(0xFF14B8A6)
+
+// Subject Domain Tag Colors
+val SubjectMath = Color(0xFF4F46E5)
+val SubjectEnglish = Color(0xFFD97706)
+val SubjectPhysics = Color(0xFF0284C7)
+val SubjectChemistry = Color(0xFF0D9488)
+val SubjectBiology = Color(0xFF16A34A)
+val SubjectGeography = Color(0xFFEA580C)
+val SubjectAgri = Color(0xFF65A30D)
+val SubjectIT = Color(0xFF7C3AED)
+val SubjectEco = Color(0xFF059669)
+val SubjectElectiveLang = Color(0xFFE11D48)
+val SubjectVocational = Color(0xFFC026D3)
+val SubjectJournAcc = Color(0xFF2563EB)
+val SubjectWarning = Color(0xFFEAB308)
+val SubjectFree = Color(0xFF64748B)
