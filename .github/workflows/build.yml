@@ -1,0 +1,93 @@
+
+name: Build Smart Timetable APK
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Inspect project structure
+        run: |
+          echo "Project files:"
+          ls -la
+
+          echo "Gradle files:"
+          find . -maxdepth 4 \
+            \( -name "settings.gradle" \
+            -o -name "settings.gradle.kts" \
+            -o -name "build.gradle" \
+            -o -name "build.gradle.kts" \
+            -o -name "gradlew" \
+            -o -name "package.json" \) \
+            -print
+
+      - name: Install Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y android-sdk
+
+      - name: Configure Android SDK
+        run: |
+          echo "ANDROID_HOME=/usr/lib/android-sdk" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=/usr/lib/android-sdk" >> "$GITHUB_ENV"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Find Android project
+        id: android
+        run: |
+          if [ -f "./gradlew" ]; then
+            echo "wrapper=./gradlew" >> "$GITHUB_OUTPUT"
+          elif [ -f "./android/gradlew" ]; then
+            echo "wrapper=./android/gradlew" >> "$GITHUB_OUTPUT"
+          elif [ -f "./gradle/gradlew" ]; then
+            echo "wrapper=./gradle/gradlew" >> "$GITHUB_OUTPUT"
+          else
+            echo "No Gradle wrapper found."
+            exit 1
+          fi
+
+      - name: List Gradle tasks
+        run: |
+          chmod +x "${{ steps.android.outputs.wrapper }}"
+          "${{ steps.android.outputs.wrapper }}" tasks --all
+
+      - name: Build Debug APK
+        run: |
+          "${{ steps.android.outputs.wrapper }}" assembleDebug --stacktrace
+
+      - name: Locate APK
+        run: |
+          find . -type f -name "*.apk"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Smart-Timetable-APK
+          path: |
+            **/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 14
+          
